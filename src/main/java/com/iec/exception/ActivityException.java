@@ -1,6 +1,6 @@
 package com.iec.exception;
 
-public class ActivityException extends RuntimeException{
+public class ActivityException extends Exception{
 	
 	private static final long serialVersionUID = 4269316494280751012L;
 

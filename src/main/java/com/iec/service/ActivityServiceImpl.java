@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.iec.constants.MessageConstants;
 import com.iec.entity.ActivityEntity;
+import com.iec.exception.ActivityException;
 import com.iec.repository.ActivityRepository;
 
 @Service
@@ -18,15 +20,24 @@ public class ActivityServiceImpl {
 		return activityRepository.findAll();
 	}
 	
-	public boolean savetActivitie(ActivityEntity activityEntity){
-		
-		ActivityEntity activity = activityRepository.findByTitle(activityEntity.getTitle());
+	public String saveActivity(ActivityEntity activityEntity) throws ActivityException{
+		ActivityEntity activity = activityRepository.findActivityByTitle(activityEntity.getTitle());
 		if(activity != null) {
-			 throw new ActivityException(ErrorMessages.MEMBER_ALREDY_EXISTS);
+			 throw new ActivityException(MessageConstants.ACTIVITY_ALREDY_EXISTS);
 		}
-		
 		activityRepository.insert(activityEntity);
-		return  true;
+		return  MessageConstants.ACTIVITY_ADDED_SUCCESSFULLY;
+	}
+	
+	public String updateActivity(ActivityEntity activityEntity){
+		ActivityEntity activity = activityRepository.findActivityById(activityEntity.getId());
+		
+		return  MessageConstants.ACTIVITY_UPDATED_SUCCESSFULLY;
+	}
+	
+	public String deleteActivity(ActivityEntity activityEntity){
+		activityRepository.delete(activityEntity);
+		return MessageConstants.ACTIVITY_DELETED_SUCCESSFULLY;
 	}
 
 }

@@ -1,5 +1,5 @@
 package com.iec.entity;
 
-public enum ChageTypes {
+public enum ChangeTypes {
 	UPDATE, COMPOSE
 }

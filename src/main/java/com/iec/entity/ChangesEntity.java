@@ -1,23 +1,31 @@
 package com.iec.entity;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "changes")  
 public class ChangesEntity {
 	
 	@Id
-	private String id;
+	private ObjectId id;
+	
+	@Field(value = "fieldName")
 	private String fieldName;
+	
+	@Field(value = "oldValue")
 	private String oldValue;
+	
+	@Field(value = "newValue")
 	private String newValue;
 	
 	public ChangesEntity() {}
 	
-	public String getId() {
+	public ObjectId getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(ObjectId id) {
 		this.id = id;
 	}
 	public String getFieldName() {
@@ -80,6 +88,12 @@ public class ChangesEntity {
 		} else if (!oldValue.equals(other.oldValue))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "ChangesEntity [id=" + id + ", fieldName=" + fieldName + ", oldValue=" + oldValue + ", newValue="
+				+ newValue + "]";
 	}
 
 }

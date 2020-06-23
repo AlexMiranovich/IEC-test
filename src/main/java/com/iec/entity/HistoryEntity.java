@@ -3,26 +3,34 @@ package com.iec.entity;
 import java.util.Date;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 
 @Document(collection = "history")  
 public class HistoryEntity {
 	
 	@Id
-	private String id;
+	private ObjectId id;
+	
+	@Field(value = "dateTime")
 	private Date dateTime;
-	private String type;
+	
+	@Field(value = "type")
+	private ChangeTypes type;
+	
+	@Field(value = "changes")
 	private List<ChangesEntity> changes;
 	
 	public HistoryEntity() {}
 
-	public String getId() {
+	public ObjectId getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(ObjectId id) {
 		this.id = id;
 	}
 
@@ -34,11 +42,11 @@ public class HistoryEntity {
 		this.dateTime = dateTime;
 	}
 
-	public String getType() {
+	public ChangeTypes getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(ChangeTypes type) {
 		this.type = type;
 	}
 
@@ -91,6 +99,11 @@ public class HistoryEntity {
 		} else if (!type.equals(other.type))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "HistoryEntity [id=" + id + ", dateTime=" + dateTime + ", type=" + type + ", changes=" + changes + "]";
 	}
 	
 }

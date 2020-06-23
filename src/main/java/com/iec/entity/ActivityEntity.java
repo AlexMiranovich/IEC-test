@@ -1,21 +1,34 @@
 package com.iec.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "activity")  
 public class ActivityEntity {
 	
 	@Id
     private ObjectId id;
+	
+	@Field(value = "title")
 	private String title;
+	
+	@Field(value = "summary")
 	private String summary;
+	
+	@Field(value = "description")
 	private String description;
-	private Date startDate;
-	private Date endDate;
+	
+	@Field(value = "startDate")
+	private LocalDate startDate;
+	
+	@Field(value = "endDate")
+	private LocalDate endDate;
+	
+	@Field(value = "info")
 	private String info;
 	
 
@@ -45,16 +58,16 @@ public class ActivityEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 	public String getInfo() {

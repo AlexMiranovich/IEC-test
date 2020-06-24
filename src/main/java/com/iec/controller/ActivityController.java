@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.iec.entity.ActivityEntity;
 import com.iec.exception.ActivityException;
+import com.iec.exception.HistoryException;
 import com.iec.service.ActivityServiceImpl;
 
 @RestController
@@ -31,7 +32,7 @@ public class ActivityController {
     }
     
     @PostMapping(path = "/saveNewActivity", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String saveNewActivity(@RequestBody ActivityEntity activityEntity) throws ActivityException {
+    public String saveNewActivity(@RequestBody ActivityEntity activityEntity) throws ActivityException, HistoryException {
         return activityServiceImpl.saveActivity(activityEntity);
     }
     
@@ -41,7 +42,7 @@ public class ActivityController {
     }
         
     @PutMapping(path = "/updateExistActivity", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String updateExistActivity(@RequestBody ActivityEntity activityEntity) throws ActivityException  {
+    public String updateExistActivity(@RequestBody ActivityEntity activityEntity) throws ActivityException, HistoryException  {
     	return activityServiceImpl.updateActivity(activityEntity); 
     }
     

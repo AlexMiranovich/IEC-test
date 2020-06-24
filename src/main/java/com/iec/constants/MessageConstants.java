@@ -14,6 +14,8 @@ public final class MessageConstants {
 	
 	public static final String HISTORY_ADDED_SUCCESSFULLY = "History successfully added.";
 	
+	public static final String HISTORY_ALREDY_EXISTS = "The history already exists.";
+	
 	public static final String HISTORY_DELETED_SUCCESSFULLY = "History successfully deleted.";
 
 }

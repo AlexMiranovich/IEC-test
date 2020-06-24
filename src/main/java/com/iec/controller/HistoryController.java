@@ -3,12 +3,17 @@ package com.iec.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.iec.entity.HistoryEntity;
+import com.iec.exception.HistoryException;
 import com.iec.service.HistoryServiceImpl;
 
 @RestController
@@ -24,22 +29,14 @@ public class HistoryController {
         return historyServiceImpl.getHistories();
     }
     
- /*   
-    @PostMapping(path = "/saveNewHistory", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String saveNewActivity(@RequestBody ActivityEntity activityEntity) throws ActivityException {
-        return activityServiceImpl.saveActivity(activityEntity);
+    @DeleteMapping(path = "/deleteHistory", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String deleteHistory(@RequestBody HistoryEntity historyEntity) {
+    	return historyServiceImpl.deleteHistory(historyEntity);     		
     }
     
-    @DeleteMapping(path = "/deleteHistory", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String deleteActivity(@RequestBody ActivityEntity activityEntity) {
-    	return activityServiceImpl.deleteActivity(activityEntity);     		
+    @PostMapping(path = "/saveNewHistory", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String saveNewHistory(@RequestBody HistoryEntity historyEntity) throws HistoryException{
+        return historyServiceImpl.saveHistory(historyEntity);
     }
-        
-    @PostMapping(path = "/updateExistActivity", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public String updateExistActivity(@RequestBody ActivityEntity activityEntity)  {
- //       return activityServiceImpl.saveActivity(activityEntity);
-    	return null;
-    }
-*/ 
     
 }

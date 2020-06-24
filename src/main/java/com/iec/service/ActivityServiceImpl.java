@@ -18,6 +18,7 @@ import com.iec.entity.ChangeTypes;
 import com.iec.entity.ChangesEntity;
 import com.iec.entity.HistoryEntity;
 import com.iec.exception.ActivityException;
+import com.iec.exception.HistoryException;
 import com.iec.repository.ActivityRepository;
 
 @Service
@@ -48,7 +49,7 @@ public class ActivityServiceImpl implements ActivityService{
 	}
 	
 	@Override
-	public String saveActivity(ActivityEntity activityEntity) throws ActivityException{
+	public String saveActivity(ActivityEntity activityEntity) throws ActivityException, HistoryException{
 		Optional<ActivityEntity> activityDB = activityRepository.findActivityByTitle(activityEntity.getTitle());
 		if(!activityDB.isEmpty()) {
 			 throw new ActivityException(MessageConstants.ACTIVITY_ALREDY_EXISTS);
@@ -65,7 +66,7 @@ public class ActivityServiceImpl implements ActivityService{
 	}
 
 	@Override
-	public String updateActivity(ActivityEntity activityEntity) throws ActivityException{
+	public String updateActivity(ActivityEntity activityEntity) throws ActivityException, HistoryException{
 		Optional<ActivityEntity> activityDB = activityRepository.findActivityById(activityEntity.getId());
 		if(activityDB.isPresent()) {
 			ActivityEntity updatedActivity = activityDB.get();

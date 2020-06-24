@@ -34,25 +34,23 @@ public class ActivityController {
         return activityServiceImpl.getActivities();
     }
     
-    @PostMapping(path = "/saveNewActivity", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+//    @PostMapping(path = "/saveNewActivity", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(path = "/saveNewActivity")
     @ResponseBody
     public String saveNewActivity(ActivityEntity activityEntity) throws ActivityException {
         return activityServiceImpl.saveActivity(activityEntity);
     }
     
-    
-    @PostMapping(path = "/updateExistActivity", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+//    @PostMapping(path = "/updateExistActivity", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(path = "/updateExistActivity")
     @ResponseBody
     public String updateExistActivity(ActivityEntity activityEntity)  {
  //       return activityServiceImpl.saveActivity(activityEntity);
     	return null;
     }
     
-    
-    
-    
-    
-    @DeleteMapping(path = "/deleteActivity", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+//    @DeleteMapping(path = "/deleteActivity", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @DeleteMapping(path = "/deleteActivity")
     @ResponseBody
     public String deleteActivity(ActivityEntity activityEntity) {
         return activityServiceImpl.deleteActivity(activityEntity);

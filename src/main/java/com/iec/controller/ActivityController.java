@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,10 +40,9 @@ public class ActivityController {
     	return activityServiceImpl.deleteActivity(activityEntity);     		
     }
         
-    @PostMapping(path = "/updateExistActivity", produces = {MediaType.APPLICATION_JSON_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE})
-    public String updateExistActivity(@RequestBody ActivityEntity activityEntity)  {
- //       return activityServiceImpl.saveActivity(activityEntity);
-    	return null;
+    @PutMapping(path = "/updateExistActivity", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public String updateExistActivity(@RequestBody ActivityEntity activityEntity) throws ActivityException  {
+    	return activityServiceImpl.updateActivity(activityEntity); 
     }
     
 }

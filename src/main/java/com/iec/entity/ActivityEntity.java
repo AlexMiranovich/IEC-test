@@ -11,14 +11,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class ActivityEntity {
 	
 	@Id
-    private String _id;
+    private String id;
 	private String title;
 	private String summary;
 	private String description;
-	
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date startDateTime;
-	
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date endDateTime;
 	private String info;
@@ -26,11 +24,11 @@ public class ActivityEntity {
 	public ActivityEntity() {}
 
 	public String getId() {
-		return _id;
+		return id;
 	}
 
-	public void setId(String _id) {
-		this._id = _id;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
@@ -83,7 +81,7 @@ public class ActivityEntity {
 
 	@Override
 	public String toString() {
-		return "ActivityEntity [id=" + _id + ", title=" + title + ", summary=" + summary + ", description=" + description
+		return "ActivityEntity [id=" + id + ", title=" + title + ", summary=" + summary + ", description=" + description
 				+ ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + ", info=" + info + "]";
 	}
 	

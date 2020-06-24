@@ -9,11 +9,9 @@ import com.iec.entity.ActivityEntity;
 
 public interface ActivityRepository extends MongoRepository<ActivityEntity, String>{
 	
-	@Query("{ 'title' : {$regex: ?0, $options: 'i' }}")
+//	@Query("{ 'title' : {$regex: ?0, $options: 'i' }}")
 	Optional<ActivityEntity> findActivityByTitle(final String title);
 	
-	@Query("{ 'id' : {$regex: ?0 }}")
 	Optional<ActivityEntity> findActivityById(final String id);
-
 
 }

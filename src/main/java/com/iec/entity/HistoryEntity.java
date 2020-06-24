@@ -1,8 +1,8 @@
 package com.iec.entity;
 
 import java.util.Date;
+import java.util.List;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -12,27 +12,36 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class HistoryEntity {
 	
 	@Id
-	private ObjectId id;
-	
+	private String id;
+	private String activityId;
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date dateTime;
 	private ChangeTypes type;
-	private ChangesEntity changes;
+	private List<ChangesEntity> changes;
 	
 	public HistoryEntity() {}
-	
-	public HistoryEntity(Date dateTime, ChangeTypes type, ChangesEntity changes) {
+
+	public HistoryEntity(String activityId, Date dateTime, ChangeTypes type, List<ChangesEntity> changes) {
+		this.activityId = activityId;
 		this.dateTime = dateTime;
 		this.type = type;
 		this.changes = changes;
 	}
 
-	public ObjectId getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(ObjectId id) {
+	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getActivityId() {
+		return activityId;
+	}
+
+	public void setActivityId(String activityId) {
+		this.activityId = activityId;
 	}
 
 	public Date getDateTime() {
@@ -51,17 +60,18 @@ public class HistoryEntity {
 		this.type = type;
 	}
 
-	public ChangesEntity getChanges() {
+	public List<ChangesEntity> getChanges() {
 		return changes;
 	}
 
-	public void setChanges(ChangesEntity changes) {
+	public void setChanges(List<ChangesEntity> changes) {
 		this.changes = changes;
 	}
 
 	@Override
 	public String toString() {
-		return "HistoryEntity [id=" + id + ", dateTime=" + dateTime + ", type=" + type + ", changes=" + changes + "]";
+		return "HistoryEntity [id=" + id + ", activityId=" + activityId + ", dateTime=" + dateTime + ", type=" + type
+				+ ", changes=" + changes + "]";
 	}
 	
 }

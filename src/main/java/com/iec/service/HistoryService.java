@@ -6,6 +6,8 @@ import com.iec.entity.HistoryEntity;
 
 public interface HistoryService {
 	
-	public List<HistoryEntity> getAllHistory();
-
+	List<HistoryEntity> getHistories();
+	
+	void saveHistory(HistoryEntity historyEntity);
+	
 }

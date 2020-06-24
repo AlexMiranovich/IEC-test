@@ -15,8 +15,18 @@ public class HistoryServiceImpl implements HistoryService{
 	private HistoryRepository historyRepository;
 	
 	@Override
-	public List<HistoryEntity> getAllHistory(){
+	public List<HistoryEntity> getHistories(){
 		return historyRepository.findAll();
 	}
-
+	
+	@Override
+	public void saveHistory(HistoryEntity historyEntity){
+		historyRepository.insert(historyEntity);
+	}
+/*	
+	@Override
+	public void deleteHistory(String activityId) {
+		historyRepository.deleteHistoryByActivityId(activityId);
+	}
+*/
 }

@@ -21,7 +21,13 @@ public class ChangesEntity {
 	private String newValue;
 	
 	public ChangesEntity() {}
-	
+
+	public ChangesEntity(String fieldName, String oldValue, String newValue) {
+		this.fieldName = fieldName;
+		this.oldValue = oldValue;
+		this.newValue = newValue;
+	}
+
 	public ObjectId getId() {
 		return id;
 	}
@@ -47,49 +53,6 @@ public class ChangesEntity {
 		this.newValue = newValue;
 	}
 	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((fieldName == null) ? 0 : fieldName.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((newValue == null) ? 0 : newValue.hashCode());
-		result = prime * result + ((oldValue == null) ? 0 : oldValue.hashCode());
-		return result;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ChangesEntity other = (ChangesEntity) obj;
-		if (fieldName == null) {
-			if (other.fieldName != null)
-				return false;
-		} else if (!fieldName.equals(other.fieldName))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (newValue == null) {
-			if (other.newValue != null)
-				return false;
-		} else if (!newValue.equals(other.newValue))
-			return false;
-		if (oldValue == null) {
-			if (other.oldValue != null)
-				return false;
-		} else if (!oldValue.equals(other.oldValue))
-			return false;
-		return true;
-	}
-
 	@Override
 	public String toString() {
 		return "ChangesEntity [id=" + id + ", fieldName=" + fieldName + ", oldValue=" + oldValue + ", newValue="

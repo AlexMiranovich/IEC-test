@@ -1,147 +1,90 @@
 package com.iec.entity;
 
-import java.time.LocalDate;
+import java.util.Date;
 
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 @Document(collection = "activity")  
 public class ActivityEntity {
 	
 	@Id
-    private ObjectId id;
-	
-	@Field(value = "title")
+    private String _id;
 	private String title;
-	
-	@Field(value = "summary")
 	private String summary;
-	
-	@Field(value = "description")
 	private String description;
 	
-	@Field(value = "startDate")
-	private LocalDate startDate;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	private Date startDateTime;
 	
-	@Field(value = "endDate")
-	private LocalDate endDate;
-	
-	@Field(value = "info")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	private Date endDateTime;
 	private String info;
-	
-
+		
 	public ActivityEntity() {}
-	
-	public ObjectId getId() {
-		return id;
+
+	public String getId() {
+		return _id;
 	}
-	public void setId(ObjectId id) {
-		this.id = id;
+
+	public void setId(String _id) {
+		this._id = _id;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
 	public String getSummary() {
 		return summary;
 	}
+
 	public void setSummary(String summary) {
 		this.summary = summary;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public LocalDate getStartDate() {
-		return startDate;
+
+	public Date getStartDateTime() {
+		return startDateTime;
 	}
-	public void setStartDate(LocalDate startDate) {
-		this.startDate = startDate;
+
+	public void setStartDateTime(Date startDateTime) {
+		this.startDateTime = startDateTime;
 	}
-	public LocalDate getEndDate() {
-		return endDate;
+
+	public Date getEndDateTime() {
+		return endDateTime;
 	}
-	public void setEndDate(LocalDate endDate) {
-		this.endDate = endDate;
+
+	public void setEndDateTime(Date endDateTime) {
+		this.endDateTime = endDateTime;
 	}
+
 	public String getInfo() {
 		return info;
 	}
+
 	public void setInfo(String info) {
 		this.info = info;
 	}
-	
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((info == null) ? 0 : info.hashCode());
-		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
-		result = prime * result + ((summary == null) ? 0 : summary.hashCode());
-		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		return result;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ActivityEntity other = (ActivityEntity) obj;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
-			return false;
-		if (endDate == null) {
-			if (other.endDate != null)
-				return false;
-		} else if (!endDate.equals(other.endDate))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (info == null) {
-			if (other.info != null)
-				return false;
-		} else if (!info.equals(other.info))
-			return false;
-		if (startDate == null) {
-			if (other.startDate != null)
-				return false;
-		} else if (!startDate.equals(other.startDate))
-			return false;
-		if (summary == null) {
-			if (other.summary != null)
-				return false;
-		} else if (!summary.equals(other.summary))
-			return false;
-		if (title == null) {
-			if (other.title != null)
-				return false;
-		} else if (!title.equals(other.title))
-			return false;
-		return true;
-	}
-	
+
 	@Override
 	public String toString() {
-		return "Activity [id=" + id + ", title=" + title + ", summary=" + summary + ", description=" + description
-				+ ", startDate=" + startDate + ", endDate=" + endDate + ", info=" + info + "]";
+		return "ActivityEntity [id=" + _id + ", title=" + title + ", summary=" + summary + ", description=" + description
+				+ ", startDateTime=" + startDateTime + ", endDateTime=" + endDateTime + ", info=" + info + "]";
 	}
+	
 }
-
-

@@ -1,12 +1,11 @@
 package com.iec.entity;
 
 import java.util.Date;
-import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Document(collection = "history")  
@@ -15,16 +14,18 @@ public class HistoryEntity {
 	@Id
 	private ObjectId id;
 	
-	@Field(value = "dateTime")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date dateTime;
-	
-	@Field(value = "type")
 	private ChangeTypes type;
-	
-	@Field(value = "changes")
-	private List<ChangesEntity> changes;
+	private ChangesEntity changes;
 	
 	public HistoryEntity() {}
+	
+	public HistoryEntity(Date dateTime, ChangeTypes type, ChangesEntity changes) {
+		this.dateTime = dateTime;
+		this.type = type;
+		this.changes = changes;
+	}
 
 	public ObjectId getId() {
 		return id;
@@ -50,55 +51,12 @@ public class HistoryEntity {
 		this.type = type;
 	}
 
-	public List<ChangesEntity> getChanges() {
+	public ChangesEntity getChanges() {
 		return changes;
 	}
 
-	public void setChanges(List<ChangesEntity> changes) {
+	public void setChanges(ChangesEntity changes) {
 		this.changes = changes;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((changes == null) ? 0 : changes.hashCode());
-		result = prime * result + ((dateTime == null) ? 0 : dateTime.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((type == null) ? 0 : type.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		HistoryEntity other = (HistoryEntity) obj;
-		if (changes == null) {
-			if (other.changes != null)
-				return false;
-		} else if (!changes.equals(other.changes))
-			return false;
-		if (dateTime == null) {
-			if (other.dateTime != null)
-				return false;
-		} else if (!dateTime.equals(other.dateTime))
-			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (type == null) {
-			if (other.type != null)
-				return false;
-		} else if (!type.equals(other.type))
-			return false;
-		return true;
 	}
 
 	@Override

@@ -38,5 +38,11 @@ public class HistoryServiceImpl implements HistoryService{
 		historyRepository.delete(historyEntity);
 		return MessageConstants.HISTORY_DELETED_SUCCESSFULLY;
 	}
+	
+	@Override
+	public String deleteHistoryByActivityId(String activityId) {
+		historyRepository.deleteById(activityId);
+		return MessageConstants.HISTORY_DELETED_SUCCESSFULLY;
+	}
 
 }

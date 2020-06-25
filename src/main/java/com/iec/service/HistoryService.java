@@ -12,5 +12,7 @@ public interface HistoryService {
 	String saveHistory(HistoryEntity historyEntity) throws HistoryException;
 	
 	String deleteHistory(HistoryEntity historyEntity);
-	
+
+	String deleteHistoryByActivityId(String activityId);
+		
 }

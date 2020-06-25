@@ -41,7 +41,7 @@ public class ActivityServiceImpl implements ActivityService{
 				exception.printStackTrace();
 			}
 	   	 return null;
-   }
+    }
 	
 	@Override
 	public List<ActivityEntity> getActivities(){
@@ -62,6 +62,7 @@ public class ActivityServiceImpl implements ActivityService{
 	@Override
 	public String deleteActivity(ActivityEntity activityEntity){
 		activityRepository.delete(activityEntity);
+		historyServiceImpl.deleteHistoryByActivityId(activityEntity.getId());
 		return  MessageConstants.ACTIVITY_DELETED_SUCCESSFULLY;
 	}
 

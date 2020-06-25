@@ -17,5 +17,7 @@ public final class MessageConstants {
 	public static final String HISTORY_ALREDY_EXISTS = "The history already exists.";
 	
 	public static final String HISTORY_DELETED_SUCCESSFULLY = "History successfully deleted.";
+		
+	public static final String CHANGES_DELETED_SUCCESSFULLY = "Changes successfully deleted.";
 
 }

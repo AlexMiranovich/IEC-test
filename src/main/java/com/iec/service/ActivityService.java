@@ -2,18 +2,18 @@ package com.iec.service;
 
 import java.util.List;
 
-import com.iec.entity.ActivityEntity;
+import com.iec.entity.Activity;
 import com.iec.exception.ActivityException;
 import com.iec.exception.HistoryException;
 
 public interface ActivityService {
 	
-	List<ActivityEntity> getActivities();
+	List<Activity> getActivities();
 		
-	String deleteActivity(ActivityEntity activityEntity);
+	String deleteActivity(Activity activityEntity);
 	
-	String saveActivity(ActivityEntity activityEntity) throws ActivityException, HistoryException;
+	String saveActivity(Activity activityEntity) throws ActivityException, HistoryException;
 	
-	String updateActivity(ActivityEntity activityEntity) throws ActivityException, HistoryException;
+	String updateActivity(Activity activityEntity) throws ActivityException, HistoryException;
 
 }

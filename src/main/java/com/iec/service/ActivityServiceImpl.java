@@ -13,10 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iec.constants.MessageConstants;
-import com.iec.entity.ActivityEntity;
+import com.iec.entity.Activity;
 import com.iec.entity.ChangeTypes;
-import com.iec.entity.ChangesEntity;
-import com.iec.entity.HistoryEntity;
+import com.iec.entity.Changes;
+import com.iec.entity.History;
 import com.iec.exception.ActivityException;
 import com.iec.exception.HistoryException;
 import com.iec.repository.ActivityRepository;
@@ -44,55 +44,55 @@ public class ActivityServiceImpl implements ActivityService{
     }
 	
 	@Override
-	public List<ActivityEntity> getActivities(){
+	public List<Activity> getActivities(){
 		return activityRepository.findAll();
 	}
 	
 	@Override
-	public String saveActivity(ActivityEntity activityEntity) throws ActivityException, HistoryException{
-		Optional<ActivityEntity> activityDB = activityRepository.findActivityByTitle(activityEntity.getTitle());
+	public String saveActivity(Activity activityEntity) throws ActivityException, HistoryException{
+		Optional<Activity> activityDB = activityRepository.findActivityByTitle(activityEntity.getTitle());
 		if(!activityDB.isEmpty()) {
 			 throw new ActivityException(MessageConstants.ACTIVITY_ALREDY_EXISTS);
 		};
 		activityRepository.insert(activityEntity);
-		historyServiceImpl.saveHistory(new HistoryEntity(activityEntity.getId(), getCurrentDate(),ChangeTypes.COMPOSE,null));
+		historyServiceImpl.saveHistory(new History(activityEntity.getId(), getCurrentDate(),ChangeTypes.COMPOSE,null));
 		return  MessageConstants.ACTIVITY_ADDED_SUCCESSFULLY;
 	}
 	
 	@Override
-	public String deleteActivity(ActivityEntity activityEntity){
+	public String deleteActivity(Activity activityEntity){
 		activityRepository.delete(activityEntity);
 		historyServiceImpl.deleteHistoryByActivityId(activityEntity.getId());
 		return  MessageConstants.ACTIVITY_DELETED_SUCCESSFULLY;
 	}
 
 	@Override
-	public String updateActivity(ActivityEntity activityEntity) throws ActivityException, HistoryException{
-		Optional<ActivityEntity> activityDB = activityRepository.findActivityById(activityEntity.getId());
+	public String updateActivity(Activity activityEntity) throws ActivityException, HistoryException{
+		Optional<Activity> activityDB = activityRepository.findActivityById(activityEntity.getId());
 		if(activityDB.isPresent()) {
-			ActivityEntity updatedActivity = activityDB.get();
-			List<ChangesEntity> listOfChanges = new ArrayList<>();
+			Activity updatedActivity = activityDB.get();
+			List<Changes> listOfChanges = new ArrayList<>();
 			if(updatedActivity.getTitle() != activityEntity.getTitle()) {
-				listOfChanges.add(new ChangesEntity(activityEntity.getId(), "title", updatedActivity.getTitle(), activityEntity.getTitle()));
+				listOfChanges.add(new Changes(activityEntity.getId(), "title", updatedActivity.getTitle(), activityEntity.getTitle()));
 			}
 			if(updatedActivity.getSummary() != activityEntity.getSummary()) {
-				listOfChanges.add(new ChangesEntity(activityEntity.getId(), "summary", updatedActivity.getSummary(), activityEntity.getSummary()));
+				listOfChanges.add(new Changes(activityEntity.getId(), "summary", updatedActivity.getSummary(), activityEntity.getSummary()));
 			}
 			if(updatedActivity.getDescription() != activityEntity.getDescription()) {
-				listOfChanges.add(new ChangesEntity(activityEntity.getId(), "description", updatedActivity.getDescription(), activityEntity.getDescription()));
+				listOfChanges.add(new Changes(activityEntity.getId(), "description", updatedActivity.getDescription(), activityEntity.getDescription()));
 			}
 			if(updatedActivity.getStartDateTime() != activityEntity.getStartDateTime()) {
-				listOfChanges.add(new ChangesEntity(activityEntity.getId(), "startDateTime", updatedActivity.getStartDateTime().toString(), activityEntity.getStartDateTime().toString()));
+				listOfChanges.add(new Changes(activityEntity.getId(), "startDateTime", updatedActivity.getStartDateTime().toString(), activityEntity.getStartDateTime().toString()));
 			}
 			if(updatedActivity.getEndDateTime() != activityEntity.getEndDateTime()) {
-				listOfChanges.add(new ChangesEntity(activityEntity.getId(), "endDateTime", updatedActivity.getEndDateTime().toString(), activityEntity.getEndDateTime().toString()));
+				listOfChanges.add(new Changes(activityEntity.getId(), "endDateTime", updatedActivity.getEndDateTime().toString(), activityEntity.getEndDateTime().toString()));
 			}
 			if(updatedActivity.getInfo() != activityEntity.getInfo()) {
-				listOfChanges.add(new ChangesEntity(activityEntity.getId(), "info", updatedActivity.getInfo(), activityEntity.getInfo()));
+				listOfChanges.add(new Changes(activityEntity.getId(), "info", updatedActivity.getInfo(), activityEntity.getInfo()));
 			}
 			activityRepository.delete(updatedActivity);
 			activityRepository.insert(activityEntity);
-			historyServiceImpl.saveHistory(new HistoryEntity(activityEntity.getId(), getCurrentDate(),ChangeTypes.UPDATE,listOfChanges));
+			historyServiceImpl.saveHistory(new History(activityEntity.getId(), getCurrentDate(),ChangeTypes.UPDATE,listOfChanges));
 		} else {
 			throw new ActivityException(MessageConstants.ACTIVITY_DO_NOT_EXISTS);
 		}

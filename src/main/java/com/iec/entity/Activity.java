@@ -11,7 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Document(collection = "activity")  
-public class ActivityEntity {
+public class Activity {
 	
 	@Id
     private String id;
@@ -38,7 +38,7 @@ public class ActivityEntity {
 
 	private String info;
 		
-	public ActivityEntity() {}
+	public Activity() {}
 
 	public String getId() {
 		return id;

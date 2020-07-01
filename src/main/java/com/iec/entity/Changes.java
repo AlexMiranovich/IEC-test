@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "changes")  
-public class ChangesEntity {
+public class Changes {
 	
 	@Id
 	private String id;
@@ -13,9 +13,9 @@ public class ChangesEntity {
 	private String oldValue;
 	private String newValue;
 	
-	public ChangesEntity() {}
+	public Changes() {}
 
-	public ChangesEntity(String activityId, String fieldName, String oldValue, String newValue) {
+	public Changes(String activityId, String fieldName, String oldValue, String newValue) {
 		this.activityId = activityId;
 		this.fieldName = fieldName;
 		this.oldValue = oldValue;

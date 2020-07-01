@@ -5,10 +5,10 @@ import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.iec.entity.HistoryEntity;
+import com.iec.entity.History;
 
-public interface HistoryRepository extends MongoRepository<HistoryEntity, String>{
+public interface HistoryRepository extends MongoRepository<History, String>{
 
-	Optional<HistoryEntity> findHistoryByDateTime(final Date dateTime);
+	Optional<History> findHistoryByDateTime(final Date dateTime);
 	
 }

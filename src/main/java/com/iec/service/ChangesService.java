@@ -2,12 +2,12 @@ package com.iec.service;
 
 import java.util.List;
 
-import com.iec.entity.ChangesEntity;
+import com.iec.entity.Changes;
 
 public interface ChangesService {
 	
-	List<ChangesEntity> getChanges();
+	List<Changes> getChanges();
 	
-	String deleteChanges(ChangesEntity changesEntity);
+	String deleteChanges(Changes changesEntity);
 		
 }

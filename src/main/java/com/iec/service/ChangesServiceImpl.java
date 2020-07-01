@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iec.constants.MessageConstants;
-import com.iec.entity.ChangesEntity;
+import com.iec.entity.Changes;
 import com.iec.repository.ChangesRepository;
 
 
@@ -17,12 +17,12 @@ public class ChangesServiceImpl implements ChangesService{
 	private ChangesRepository changesRepository;
 	
 	@Override
-	public List<ChangesEntity> getChanges(){
+	public List<Changes> getChanges(){
 		return changesRepository.findAll();
 	}
 	
 	@Override
-	public String deleteChanges(ChangesEntity changesEntity){
+	public String deleteChanges(Changes changesEntity){
 		changesRepository.delete(changesEntity);
 		return  MessageConstants.CHANGES_DELETED_SUCCESSFULLY;
 	}

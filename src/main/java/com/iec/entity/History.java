@@ -9,7 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Document(collection = "history")  
-public class HistoryEntity {
+public class History {
 	
 	@Id
 	private String id;
@@ -17,11 +17,11 @@ public class HistoryEntity {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private Date dateTime;
 	private ChangeTypes type;
-	private List<ChangesEntity> changes;
+	private List<Changes> changes;
 	
-	public HistoryEntity() {}
+	public History() {}
 
-	public HistoryEntity(String activityId, Date dateTime, ChangeTypes type, List<ChangesEntity> changes) {
+	public History(String activityId, Date dateTime, ChangeTypes type, List<Changes> changes) {
 		this.activityId = activityId;
 		this.dateTime = dateTime;
 		this.type = type;
@@ -60,11 +60,11 @@ public class HistoryEntity {
 		this.type = type;
 	}
 
-	public List<ChangesEntity> getChanges() {
+	public List<Changes> getChanges() {
 		return changes;
 	}
 
-	public void setChanges(List<ChangesEntity> changes) {
+	public void setChanges(List<Changes> changes) {
 		this.changes = changes;
 	}
 

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iec.constants.MessageConstants;
-import com.iec.entity.HistoryEntity;
+import com.iec.entity.History;
 import com.iec.exception.HistoryException;
 import com.iec.repository.HistoryRepository;
 
@@ -18,13 +18,13 @@ public class HistoryServiceImpl implements HistoryService{
 	private HistoryRepository historyRepository;
 	
 	@Override
-	public List<HistoryEntity> getHistories(){
+	public List<History> getHistories(){
 		return historyRepository.findAll();
 	}
 	
 	@Override
-	public String saveHistory(HistoryEntity historyEntity) throws HistoryException{
-		Optional<HistoryEntity> historyDB = historyRepository.findHistoryByDateTime(historyEntity.getDateTime());
+	public String saveHistory(History historyEntity) throws HistoryException{
+		Optional<History> historyDB = historyRepository.findHistoryByDateTime(historyEntity.getDateTime());
 		if(!historyDB.isEmpty()) {
 			 throw new HistoryException(MessageConstants.HISTORY_ALREDY_EXISTS);
 		};
@@ -34,7 +34,7 @@ public class HistoryServiceImpl implements HistoryService{
 	}
 
 	@Override
-	public String deleteHistory(HistoryEntity historyEntity) {
+	public String deleteHistory(History historyEntity) {
 		historyRepository.delete(historyEntity);
 		return MessageConstants.HISTORY_DELETED_SUCCESSFULLY;
 	}

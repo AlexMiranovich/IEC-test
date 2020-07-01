@@ -3,47 +3,48 @@ package com.iec.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.iec.entity.ActivityEntity;
+import com.iec.entity.Activity;
 import com.iec.exception.ActivityException;
 import com.iec.exception.HistoryException;
-import com.iec.service.ActivityServiceImpl;
+import com.iec.service.ActivityService;
 
 @RestController
 @RequestMapping("/activity")
 public class ActivityController {
 	
-	@Autowired
-	private ActivityServiceImpl activityServiceImpl;
+	private ActivityService activityService;
 	
-    @GetMapping(path = "/getAllActivities")
-    @ResponseBody
-    public List<ActivityEntity> getAllActivities() {
-        return activityServiceImpl.getActivities();
+	@Autowired
+	public ActivityController(ActivityService activityService) {
+		this.activityService = activityService;
+	}
+	
+    @GetMapping("/get-activities")
+    public List<Activity> getAllActivities() {
+    	return activityService.getActivities();
     }
     
-    @PostMapping(path = "/saveNewActivity", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String saveNewActivity(@RequestBody ActivityEntity activityEntity) throws ActivityException, HistoryException {
-        return activityServiceImpl.saveActivity(activityEntity);
+    @PostMapping("/save-activity")
+    public String saveNewActivity(@RequestBody Activity activityEntity) throws ActivityException, HistoryException {
+        return activityService.saveActivity(activityEntity);
     }
     
-    @DeleteMapping(path = "/deleteActivity", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String deleteActivity(@RequestBody ActivityEntity activityEntity) {
-    	return activityServiceImpl.deleteActivity(activityEntity);     		
+    @DeleteMapping("/delete-activity")
+    public String deleteActivity(@RequestBody Activity activityEntity) {
+    	return activityService.deleteActivity(activityEntity);     		
     }
         
-    @PutMapping(path = "/updateExistActivity", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public String updateExistActivity(@RequestBody ActivityEntity activityEntity) throws ActivityException, HistoryException  {
-    	return activityServiceImpl.updateActivity(activityEntity); 
+    @PutMapping("/update-activity")
+    public String updateExistActivity(@RequestBody Activity activityEntity) throws ActivityException, HistoryException  {
+    	return activityService.updateActivity(activityEntity); 
     }
     
 }

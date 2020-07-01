@@ -4,12 +4,12 @@ import java.util.Optional;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-import com.iec.entity.ActivityEntity;
+import com.iec.entity.Activity;
 
-public interface ActivityRepository extends MongoRepository<ActivityEntity, String>{
+public interface ActivityRepository extends MongoRepository<Activity, String>{
 	
-	Optional<ActivityEntity> findActivityByTitle(final String title);
+	Optional<Activity> findActivityByTitle(final String title);
 	
-	Optional<ActivityEntity> findActivityById(final String id);
+	Optional<Activity> findActivityById(final String id);
 
 }

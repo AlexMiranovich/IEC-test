@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iec.constants.MessageConstants;
 import com.iec.entity.Changes;
 import com.iec.repository.ChangesRepository;
 
@@ -13,8 +12,12 @@ import com.iec.repository.ChangesRepository;
 @Service
 public class ChangesServiceImpl implements ChangesService{
 	
-	@Autowired
 	private ChangesRepository changesRepository;
+	
+	@Autowired
+	public ChangesServiceImpl(ChangesRepository changesRepository) {
+		this.changesRepository = changesRepository;
+	}
 	
 	@Override
 	public List<Changes> getChanges(){
@@ -22,9 +25,8 @@ public class ChangesServiceImpl implements ChangesService{
 	}
 	
 	@Override
-	public String deleteChanges(Changes changesEntity){
+	public void deleteChanges(Changes changesEntity){
 		changesRepository.delete(changesEntity);
-		return  MessageConstants.CHANGES_DELETED_SUCCESSFULLY;
 	}
 
 }

@@ -3,6 +3,8 @@ package com.iec.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,19 +27,21 @@ public class HistoryController {
 		this.historyService = historyService;
 	}
 	
-    @GetMapping("/get-history")
+    @GetMapping("/get")
     public List<History> getAllHistory() {
     	return historyService.getHistories();
     }
     
-    @DeleteMapping("/delete-history")
-    public String deleteHistory(@RequestBody History historyEntity) {
-    	return historyService.deleteHistory(historyEntity);     		
+    @DeleteMapping("/delete")
+    public ResponseEntity<History> deleteHistory(@RequestBody History historyEntity) {
+    	historyService.deleteHistory(historyEntity);   
+    	return new ResponseEntity<History>(HttpStatus.OK);
     }
     
-    @PostMapping("/save-history")
-    public String saveNewHistory(@RequestBody History historyEntity) throws HistoryException{
-        return historyService.saveHistory(historyEntity);
+    @PostMapping("/save")
+    public ResponseEntity<History> saveNewHistory(@RequestBody History historyEntity) throws HistoryException{
+        historyService.saveHistory(historyEntity);
+        return new ResponseEntity<History>(HttpStatus.OK);
     }
     
 }

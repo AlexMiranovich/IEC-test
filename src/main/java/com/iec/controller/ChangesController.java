@@ -3,6 +3,8 @@ package com.iec.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,14 +25,15 @@ public class ChangesController {
 		this.changesService = changesService;
 	}
 	
-    @GetMapping("/get-changes")
+    @GetMapping("/get")
     public List<Changes> getAllChanges() {
         return changesService.getChanges();
     }
     
-    @DeleteMapping("/delete-changes")
-    public String deleteChanges(@RequestBody Changes changesEntity) {
-    	return changesService.deleteChanges(changesEntity);     		
+    @DeleteMapping("/delete")
+    public ResponseEntity<Changes> deleteChanges(@RequestBody Changes changesEntity) {
+    	changesService.deleteChanges(changesEntity); 
+    	return new ResponseEntity<Changes>(HttpStatus.OK);
     }
       
 }

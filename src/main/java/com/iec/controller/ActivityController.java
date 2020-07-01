@@ -3,6 +3,8 @@ package com.iec.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,24 +29,27 @@ public class ActivityController {
 		this.activityService = activityService;
 	}
 	
-    @GetMapping("/get-activities")
+    @GetMapping("/get")
     public List<Activity> getAllActivities() {
     	return activityService.getActivities();
     }
     
-    @PostMapping("/save-activity")
-    public String saveNewActivity(@RequestBody Activity activityEntity) throws ActivityException, HistoryException {
-        return activityService.saveActivity(activityEntity);
+    @PostMapping("/save")
+    public ResponseEntity<Activity> saveNewActivity(@RequestBody Activity activityEntity) throws ActivityException, HistoryException {
+        activityService.saveActivity(activityEntity);
+        return new ResponseEntity<Activity>(HttpStatus.OK);
     }
     
-    @DeleteMapping("/delete-activity")
-    public String deleteActivity(@RequestBody Activity activityEntity) {
-    	return activityService.deleteActivity(activityEntity);     		
+    @DeleteMapping("/delete")
+    public ResponseEntity<Activity> deleteActivity(@RequestBody Activity activityEntity) {
+    	activityService.deleteActivity(activityEntity); 
+    	return new ResponseEntity<Activity>(HttpStatus.OK);
     }
         
-    @PutMapping("/update-activity")
-    public String updateExistActivity(@RequestBody Activity activityEntity) throws ActivityException, HistoryException  {
-    	return activityService.updateActivity(activityEntity); 
+    @PutMapping("/update")
+    public ResponseEntity<Activity> updateExistActivity(@RequestBody Activity activityEntity) throws ActivityException, HistoryException  {
+    	activityService.updateActivity(activityEntity); 
+    	return new ResponseEntity<Activity>(HttpStatus.OK);
     }
     
 }

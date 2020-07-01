@@ -14,8 +14,12 @@ import com.iec.repository.HistoryRepository;
 @Service
 public class HistoryServiceImpl implements HistoryService{
 	
-	@Autowired
 	private HistoryRepository historyRepository;
+	
+	@Autowired
+	public HistoryServiceImpl(HistoryRepository historyRepository) {
+		this.historyRepository = historyRepository;
+	}
 	
 	@Override
 	public List<History> getHistories(){
@@ -25,24 +29,21 @@ public class HistoryServiceImpl implements HistoryService{
 	@Override
 	public String saveHistory(History historyEntity) throws HistoryException{
 		Optional<History> historyDB = historyRepository.findHistoryByDateTime(historyEntity.getDateTime());
-		if(!historyDB.isEmpty()) {
+		if(historyDB.isPresent()) {
 			 throw new HistoryException(MessageConstants.HISTORY_ALREDY_EXISTS);
 		};
 		historyRepository.insert(historyEntity);
-		
 		return  MessageConstants.HISTORY_ADDED_SUCCESSFULLY;
 	}
 
 	@Override
-	public String deleteHistory(History historyEntity) {
+	public void deleteHistory(History historyEntity) {
 		historyRepository.delete(historyEntity);
-		return MessageConstants.HISTORY_DELETED_SUCCESSFULLY;
 	}
 	
 	@Override
-	public String deleteHistoryByActivityId(String activityId) {
+	public void deleteHistoryByActivityId(String activityId) {
 		historyRepository.deleteById(activityId);
-		return MessageConstants.HISTORY_DELETED_SUCCESSFULLY;
 	}
 
 }

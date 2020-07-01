@@ -23,7 +23,7 @@ import com.iec.repository.ActivityRepository;
 
 @Service
 public class ActivityServiceImpl implements ActivityService{
-	
+
 	@Autowired
 	private ActivityRepository activityRepository;
 	
@@ -49,25 +49,23 @@ public class ActivityServiceImpl implements ActivityService{
 	}
 	
 	@Override
-	public String saveActivity(Activity activityEntity) throws ActivityException, HistoryException{
+	public void saveActivity(Activity activityEntity) throws ActivityException, HistoryException{
 		Optional<Activity> activityDB = activityRepository.findActivityByTitle(activityEntity.getTitle());
-		if(!activityDB.isEmpty()) {
+		if(activityDB.isPresent()) {
 			 throw new ActivityException(MessageConstants.ACTIVITY_ALREDY_EXISTS);
 		};
 		activityRepository.insert(activityEntity);
 		historyServiceImpl.saveHistory(new History(activityEntity.getId(), getCurrentDate(),ChangeTypes.COMPOSE,null));
-		return  MessageConstants.ACTIVITY_ADDED_SUCCESSFULLY;
 	}
 	
 	@Override
-	public String deleteActivity(Activity activityEntity){
+	public void deleteActivity(Activity activityEntity){
 		activityRepository.delete(activityEntity);
 		historyServiceImpl.deleteHistoryByActivityId(activityEntity.getId());
-		return  MessageConstants.ACTIVITY_DELETED_SUCCESSFULLY;
 	}
 
 	@Override
-	public String updateActivity(Activity activityEntity) throws ActivityException, HistoryException{
+	public void updateActivity(Activity activityEntity) throws ActivityException, HistoryException{
 		Optional<Activity> activityDB = activityRepository.findActivityById(activityEntity.getId());
 		if(activityDB.isPresent()) {
 			Activity updatedActivity = activityDB.get();
@@ -96,7 +94,6 @@ public class ActivityServiceImpl implements ActivityService{
 		} else {
 			throw new ActivityException(MessageConstants.ACTIVITY_DO_NOT_EXISTS);
 		}
-		return MessageConstants.ACTIVITY_UPDATED_SUCCESSFULLY;
 	}
 
 }

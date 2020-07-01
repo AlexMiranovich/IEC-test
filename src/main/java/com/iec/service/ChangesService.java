@@ -8,6 +8,6 @@ public interface ChangesService {
 	
 	List<Changes> getChanges();
 	
-	String deleteChanges(Changes changesEntity);
+	void deleteChanges(Changes changesEntity);
 		
 }

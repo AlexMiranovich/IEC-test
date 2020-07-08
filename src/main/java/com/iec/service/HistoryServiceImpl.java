@@ -16,7 +16,6 @@ public class HistoryServiceImpl implements HistoryService{
 	
 	private HistoryRepository historyRepository;
 	
-	@Autowired
 	public HistoryServiceImpl(HistoryRepository historyRepository) {
 		this.historyRepository = historyRepository;
 	}
@@ -27,18 +26,18 @@ public class HistoryServiceImpl implements HistoryService{
 	}
 	
 	@Override
-	public String saveHistory(History historyEntity) throws HistoryException{
-		Optional<History> historyDB = historyRepository.findHistoryByDateTime(historyEntity.getDateTime());
+	public String saveHistory(History history) throws HistoryException{
+		Optional<History> historyDB = historyRepository.findHistoryByDateTime(history.getDateTime());
 		if(historyDB.isPresent()) {
 			 throw new HistoryException(MessageConstants.HISTORY_ALREDY_EXISTS);
-		};
-		historyRepository.insert(historyEntity);
+		}
+		historyRepository.insert(history);
 		return  MessageConstants.HISTORY_ADDED_SUCCESSFULLY;
 	}
 
 	@Override
-	public void deleteHistory(History historyEntity) {
-		historyRepository.delete(historyEntity);
+	public void deleteHistory(History history) {
+		historyRepository.delete(history);
 	}
 	
 	@Override

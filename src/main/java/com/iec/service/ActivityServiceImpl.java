@@ -24,19 +24,21 @@ import com.iec.repository.ActivityRepository;
 @Service
 public class ActivityServiceImpl implements ActivityService{
 
-	@Autowired
-	private ActivityRepository activityRepository;
+	private final ActivityRepository activityRepository;
 	
-	@Autowired
-	private HistoryServiceImpl historyServiceImpl;
-	
+	private final HistoryServiceImpl historyServiceImpl;
+
+	public ActivityServiceImpl(ActivityRepository activityRepository, HistoryServiceImpl historyServiceImpl) {
+		this.activityRepository = activityRepository;
+		this.historyServiceImpl = historyServiceImpl;
+	}
+
 	private DateFormat dateFormat = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-	
+
 	private Date getCurrentDate() {
    	 	 Calendar calobj = Calendar.getInstance();
 	   	 try {
-				Date currentDate = dateFormat.parse(dateFormat.format(calobj.getTime()));
-				return  currentDate;
+			 return dateFormat.parse(dateFormat.format(calobj.getTime()));
 			} catch (ParseException exception) {
 				exception.printStackTrace();
 			}
@@ -49,48 +51,48 @@ public class ActivityServiceImpl implements ActivityService{
 	}
 	
 	@Override
-	public void saveActivity(Activity activityEntity) throws ActivityException, HistoryException{
-		Optional<Activity> activityDB = activityRepository.findActivityByTitle(activityEntity.getTitle());
+	public void saveActivity(Activity activity) throws ActivityException, HistoryException{
+		Optional<Activity> activityDB = activityRepository.findActivityByTitle(activity.getTitle());
 		if(activityDB.isPresent()) {
 			 throw new ActivityException(MessageConstants.ACTIVITY_ALREDY_EXISTS);
-		};
-		activityRepository.insert(activityEntity);
-		historyServiceImpl.saveHistory(new History(activityEntity.getId(), getCurrentDate(),ChangeTypes.COMPOSE,null));
+		}
+		activityRepository.insert(activity);
+		historyServiceImpl.saveHistory(new History(activity.getId(), getCurrentDate(),ChangeTypes.COMPOSE,null));
 	}
 	
 	@Override
-	public void deleteActivity(Activity activityEntity){
-		activityRepository.delete(activityEntity);
-		historyServiceImpl.deleteHistoryByActivityId(activityEntity.getId());
+	public void deleteActivity(Activity activity){
+		activityRepository.delete(activity);
+		historyServiceImpl.deleteHistoryByActivityId(activity.getId());
 	}
 
 	@Override
-	public void updateActivity(Activity activityEntity) throws ActivityException, HistoryException{
-		Optional<Activity> activityDB = activityRepository.findActivityById(activityEntity.getId());
+	public void updateActivity(Activity activity) throws ActivityException, HistoryException{
+		Optional<Activity> activityDB = activityRepository.findActivityById(activity.getId());
 		if(activityDB.isPresent()) {
 			Activity updatedActivity = activityDB.get();
 			List<Changes> listOfChanges = new ArrayList<>();
-			if(updatedActivity.getTitle() != activityEntity.getTitle()) {
-				listOfChanges.add(new Changes(activityEntity.getId(), "title", updatedActivity.getTitle(), activityEntity.getTitle()));
+			if(!updatedActivity.getTitle().equals(activity.getTitle())) {
+				listOfChanges.add(new Changes(activity.getId(), "title", updatedActivity.getTitle(), activity.getTitle()));
 			}
-			if(updatedActivity.getSummary() != activityEntity.getSummary()) {
-				listOfChanges.add(new Changes(activityEntity.getId(), "summary", updatedActivity.getSummary(), activityEntity.getSummary()));
+			if(!updatedActivity.getSummary().equals(activity.getSummary())) {
+				listOfChanges.add(new Changes(activity.getId(), "summary", updatedActivity.getSummary(), activity.getSummary()));
 			}
-			if(updatedActivity.getDescription() != activityEntity.getDescription()) {
-				listOfChanges.add(new Changes(activityEntity.getId(), "description", updatedActivity.getDescription(), activityEntity.getDescription()));
+			if(!updatedActivity.getDescription().equals(activity.getDescription())) {
+				listOfChanges.add(new Changes(activity.getId(), "description", updatedActivity.getDescription(), activity.getDescription()));
 			}
-			if(updatedActivity.getStartDateTime() != activityEntity.getStartDateTime()) {
-				listOfChanges.add(new Changes(activityEntity.getId(), "startDateTime", updatedActivity.getStartDateTime().toString(), activityEntity.getStartDateTime().toString()));
+			if(!updatedActivity.getStartDateTime().equals(activity.getStartDateTime())) {
+				listOfChanges.add(new Changes(activity.getId(), "startDateTime", updatedActivity.getStartDateTime().toString(), activity.getStartDateTime().toString()));
 			}
-			if(updatedActivity.getEndDateTime() != activityEntity.getEndDateTime()) {
-				listOfChanges.add(new Changes(activityEntity.getId(), "endDateTime", updatedActivity.getEndDateTime().toString(), activityEntity.getEndDateTime().toString()));
+			if(!updatedActivity.getEndDateTime().equals(activity.getEndDateTime())) {
+				listOfChanges.add(new Changes(activity.getId(), "endDateTime", updatedActivity.getEndDateTime().toString(), activity.getEndDateTime().toString()));
 			}
-			if(updatedActivity.getInfo() != activityEntity.getInfo()) {
-				listOfChanges.add(new Changes(activityEntity.getId(), "info", updatedActivity.getInfo(), activityEntity.getInfo()));
+			if(!updatedActivity.getInfo().equals(activity.getInfo())) {
+				listOfChanges.add(new Changes(activity.getId(), "info", updatedActivity.getInfo(), activity.getInfo()));
 			}
 			activityRepository.delete(updatedActivity);
-			activityRepository.insert(activityEntity);
-			historyServiceImpl.saveHistory(new History(activityEntity.getId(), getCurrentDate(),ChangeTypes.UPDATE,listOfChanges));
+			activityRepository.insert(activity);
+			historyServiceImpl.saveHistory(new History(activity.getId(), getCurrentDate(),ChangeTypes.UPDATE,listOfChanges));
 		} else {
 			throw new ActivityException(MessageConstants.ACTIVITY_DO_NOT_EXISTS);
 		}

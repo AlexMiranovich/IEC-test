@@ -22,7 +22,6 @@ public class HistoryController {
 	
 	private HistoryService historyService;
 	
-	@Autowired
 	public HistoryController(HistoryService historyService) {
 		this.historyService = historyService;
 	}
@@ -35,13 +34,13 @@ public class HistoryController {
     @DeleteMapping("/delete")
     public ResponseEntity<History> deleteHistory(@RequestBody History historyEntity) {
     	historyService.deleteHistory(historyEntity);   
-    	return new ResponseEntity<History>(HttpStatus.OK);
+    	return new ResponseEntity<>(HttpStatus.OK);
     }
     
     @PostMapping("/save")
     public ResponseEntity<History> saveNewHistory(@RequestBody History historyEntity) throws HistoryException{
         historyService.saveHistory(historyEntity);
-        return new ResponseEntity<History>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
 }

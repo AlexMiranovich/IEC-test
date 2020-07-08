@@ -24,7 +24,6 @@ public class ActivityController {
 	
 	private ActivityService activityService;
 	
-	@Autowired
 	public ActivityController(ActivityService activityService) {
 		this.activityService = activityService;
 	}
@@ -37,19 +36,19 @@ public class ActivityController {
     @PostMapping("/save")
     public ResponseEntity<Activity> saveNewActivity(@RequestBody Activity activityEntity) throws ActivityException, HistoryException {
         activityService.saveActivity(activityEntity);
-        return new ResponseEntity<Activity>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
     @DeleteMapping("/delete")
     public ResponseEntity<Activity> deleteActivity(@RequestBody Activity activityEntity) {
     	activityService.deleteActivity(activityEntity); 
-    	return new ResponseEntity<Activity>(HttpStatus.OK);
+    	return new ResponseEntity<>(HttpStatus.OK);
     }
         
     @PutMapping("/update")
     public ResponseEntity<Activity> updateExistActivity(@RequestBody Activity activityEntity) throws ActivityException, HistoryException  {
     	activityService.updateActivity(activityEntity); 
-    	return new ResponseEntity<Activity>(HttpStatus.OK);
+    	return new ResponseEntity<>(HttpStatus.OK);
     }
     
 }

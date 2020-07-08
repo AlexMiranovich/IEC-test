@@ -20,7 +20,6 @@ public class ChangesController {
 	
 	private ChangesService changesService;
 	
-	@Autowired
 	public ChangesController(ChangesService changesService) {
 		this.changesService = changesService;
 	}
@@ -33,7 +32,7 @@ public class ChangesController {
     @DeleteMapping("/delete")
     public ResponseEntity<Changes> deleteChanges(@RequestBody Changes changesEntity) {
     	changesService.deleteChanges(changesEntity); 
-    	return new ResponseEntity<Changes>(HttpStatus.OK);
+    	return new ResponseEntity<>(HttpStatus.OK);
     }
       
 }

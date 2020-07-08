@@ -6,7 +6,6 @@ plugins {
 
 group = 'com.iec'
 version = '1.0'
-sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -17,6 +16,13 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest' 
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	compileOnly 'org.projectlombok:lombok:1.18.12'
+	annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+	testCompileOnly 'org.projectlombok:lombok:1.18.12'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+
 	compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

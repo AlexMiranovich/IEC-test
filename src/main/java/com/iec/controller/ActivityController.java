@@ -2,7 +2,6 @@ package com.iec.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +21,7 @@ import com.iec.service.ActivityService;
 @RequestMapping("/activity")
 public class ActivityController {
 	
-	private ActivityService activityService;
+	private final ActivityService activityService;
 	
 	public ActivityController(ActivityService activityService) {
 		this.activityService = activityService;
